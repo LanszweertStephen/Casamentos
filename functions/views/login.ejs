@@ -1,6 +1,6 @@
 <%- include parts/header.ejs %>
-<script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
-<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
+  <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
   <style>
     h1 {
       margin-top: 10%;
@@ -49,18 +49,19 @@
 
     <div class="form-group">
       <label for="email"><i class="fas fa-user"></i></label>
-      <input type="text" class="form-control" name="email" id="email" value="Email">
+      <input type="text" class="form-control" name="email" id="email" placeholder="Email">
     </div>
     <div class="form-group">
       <label for="password"><i class="fas fa-lock"></i></label>
-      <input type="password" class="form-control" name="password" id="password" value="Password">
+      <input type="password" class="form-control" name="password" id="password" placeholder="Password">
     </div>
     <div class="form-group">
       <input type="submit" id="signInBtn" value="Log in" class="btn">
     </div>
   </form>
   <a class="link text-center" href="passwordForgotten">I forgot my password :o</a>
-  <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-auth.js"></script>
   <script>
     // Initialize Firebase
     var config = {
@@ -68,8 +69,6 @@
       authDomain: "casamentos-16f05.firebaseapp.com",
       databaseURL: "https://casamentos-16f05.firebaseio.com",
       projectId: "casamentos-16f05",
-      storageBucket: "casamentos-16f05.appspot.com",
-      messagingSenderId: "658920686702"
     };
     firebase.initializeApp(config);
 
@@ -78,14 +77,14 @@
         // User is signed in.
         console.log(user.providerData);
         fetch("http://localhost:5000/setUser", {
-            method: 'POST',
-            body: JSON.stringify(user.providerData),
-            headers: new Headers({
-              'Content-Type': 'application/json'
-            })
-          }).then((res)=>{
-            document.getElementById('signIn').submit();
-          });
+          method: 'POST',
+          body: JSON.stringify(user.providerData),
+          headers: new Headers({
+            'Content-Type': 'application/json'
+          })
+        }).then((res) => {
+          document.getElementById('signIn').submit();
+        });
       } else {
         // No user is signed in.
       }
