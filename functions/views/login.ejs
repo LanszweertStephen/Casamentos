@@ -1,71 +1,104 @@
 <%- include parts/header.ejs %>
-
-<style>
+<script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
+  <style>
     h1 {
-        margin-top: 10%;
+      margin-top: 10%;
     }
 
     form {
-        padding-top: 10%;
+      padding-top: 10%;
     }
 
     .form-group {
-        border-top: solid 1px black;
-        margin-top: 5%;
-        padding: 5%;
-        width: 60%;
-        margin-left: auto;
-        margin-right: auto;
+      border-top: solid 1px black;
+      margin-top: 5%;
+      padding: 5%;
+      width: 60%;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .form-control {
-        width: 80%;
+      width: 80%;
     }
 
     .btn {
-        background-color: rgba(196, 142, 42, 0.93);
-        color: white;
-        width: 100%;
-        padding: 10%;
-        font-size: 25px;
+      background-color: rgba(196, 142, 42, 0.93);
+      color: white;
+      width: 100%;
+      padding: 10%;
+      font-size: 25px;
     }
 
     label {
-        font-size: 30px;
-        float: left;
-        margin-right: 3%;
+      font-size: 30px;
+      float: left;
+      margin-right: 3%;
     }
 
     .link {
-        text-decoration: underline;
-        color: rgba(196, 142, 42, 0.93);
+      text-decoration: underline;
+      color: rgba(196, 142, 42, 0.93);
     }
+  </style>
 
-</style>
+  <h1 class="h1 text-center">Log in</h1>
 
-<h1 class="h1 text-center">Log in first please</h1>
+  <form id="signIn" action="login" method="post">
 
-<p class="text-danger"><%= msg %></p>
+    <div class="form-group">
+      <label for="email"><i class="fas fa-user"></i></label>
+      <input type="text" class="form-control" name="email" id="email" value="Email">
+    </div>
+    <div class="form-group">
+      <label for="password"><i class="fas fa-lock"></i></label>
+      <input type="password" class="form-control" name="password" id="password" value="Password">
+    </div>
+    <div class="form-group">
+      <input type="submit" id="signInBtn" value="Log in" class="btn">
+    </div>
+  </form>
+  <a class="link text-center" href="passwordForgotten">I forgot my password :o</a>
+  <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBG-ahO2gR1OBlCCuErWMoQKsgBIr692qk",
+      authDomain: "casamentos-16f05.firebaseapp.com",
+      databaseURL: "https://casamentos-16f05.firebaseio.com",
+      projectId: "casamentos-16f05",
+      storageBucket: "casamentos-16f05.appspot.com",
+      messagingSenderId: "658920686702"
+    };
+    firebase.initializeApp(config);
 
-<% if(formule != null){ %>
-<form action="login?formuleId=<%= formule %>" method="post">
-    <% } else{ %>
-    <form action="login" method="post">
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        console.log(user.providerData);
+        fetch("http://localhost:5000/setUser", {
+            method: 'POST',
+            body: JSON.stringify(user.providerData),
+            headers: new Headers({
+              'Content-Type': 'application/json'
+            })
+          }).then((res)=>{
+            document.getElementById('signIn').submit();
+          });
+      } else {
+        // No user is signed in.
+      }
+    });
 
-        <% } %>
-        <div class="form-group">
-            <label for="username"><i class="fas fa-user"></i></label>
-            <input type="text" class="form-control" name="username" id="username" placeholder="Username">
-        </div>
-        <div class="form-group">
-            <label for="password"><i class="fas fa-lock"></i></label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="Password">
-        </div>
-        <div class="form-group">
-            <input type="submit" class="btn" value="Log in">
-        </div>
-    </form>
-    <a class="link text-center" href="passwordForgotten">I forgot my password :o</a>
-
-
-<%- include parts/footer.ejs %>
+    let btnSignIn = document.getElementById('signInBtn');
+    btnSignIn.addEventListener('click', (e) => {
+      e.preventDefault();
+      let passedInEmail = document.getElementById('email');
+      let passedInPassword = document.getElementById('password');
+      const auth = firebase.auth();
+      const promise = auth.signInWithEmailAndPassword(passedInEmail.value, passedInPassword.value);
+      promise.catch(e => console.log(e.message));
+    });
+  </script>
+  <%- include parts/footer.ejs %>

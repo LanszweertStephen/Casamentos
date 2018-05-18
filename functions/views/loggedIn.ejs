@@ -1,108 +1,134 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Test</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style>
+    body {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
 
-        body {
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-        }
+    h1 {
+      margin-top: 5%;
+      margin-bottom: 5%;
+    }
 
-        h1 {
-            margin-top: 5%;
-            margin-bottom: 5%;
-        }
+    img {
+      width: 60%;
+      margin-top: 10%;
+      border-radius: 15px;
+    }
 
-        img {
-            width: 60%;
-            margin-top: 10%;
-            border-radius: 15px;
-        }
+    .bigFlexItem,
+    .otherFlexItems div {
+      background-color: rgba(196, 142, 42, 0.93);
+      padding-top: 5%;
+    }
 
-        .bigFlexItem, .otherFlexItems div {
-            background-color: rgba(196, 142, 42, 0.93);
-            padding-top: 5%;
-        }
+    .bigFlexItem,
+    .otherFlexItems {
+      float: left;
+    }
 
-        .bigFlexItem, .otherFlexItems {
-            float: left;
-        }
+    .bigFlexItem {
+      width: 50%;
+      height: 250px;
+      line-height: 250px;
+      border-right: 1px solid black;
+    }
 
-        .bigFlexItem {
-            width: 50%;
-            height: 250px;
-            line-height: 250px;
-            border-right: 1px solid black;
-        }
+    a {
+      text-decoration: underline;
+      color: white;
+    }
 
-        a {
-            text-decoration: underline;
-            color: white;
-        }
+    .bigFlexItem div {
+      -webkit-transform: rotate(-20deg);
+    }
 
-        .bigFlexItem div {
-            -webkit-transform: rotate(-20deg);
-        }
+    .otherFlexItems {
+      display: flex;
+      flex-flow: column;
+      width: 50%;
+    }
 
-        .otherFlexItems {
-            display: flex;
-            flex-flow: column;
-            width: 50%;
-        }
+    .otherFlexItems .flex-item {
+      height: 125px;
+      line-height: 125px;
+    }
 
-        .otherFlexItems .flex-item {
-            height: 125px;
-            line-height: 125px;
-        }
-        .btn{
-            padding: 2%;
-            background-color: rgba(196, 142, 42, 0.93);
-            border: 1px solid white;
-            width: 80%;
-            margin-top: 2%;
-        }
-
-    </style>
+    .btn {
+      padding: 2%;
+      background-color: rgba(196, 142, 42, 0.93);
+      border: 1px solid white;
+      width: 80%;
+      margin-top: 2%;
+    }
+  </style>
 </head>
+
 <body>
 
-<img src="images/logo.jpg">
+  <img src="images/logo.jpg">
 
-<h1>Welcome <%= user.username %></h1>
+  <h1>Welcome <%= user.email %></h1>
 
-<!--<h1>Ik hou van jouuuu, ikke goede IT</h1>-->
+  <!--<h1>Ik hou van jouuuu, ikke goede IT</h1>-->
+  <div>
 
-<div class="allFlexItems">
-    <div class="bigFlexItem">
+    <div class="allFlexItems">
+      <div class="bigFlexItem">
         <div><a href="wijzigGegevens">Wijzig uw gegevens</a></div>
-    </div>
-    <div class="otherFlexItems">
+      </div>
+      <div class="otherFlexItems">
         <div class="flex-item"><a href="bekijkBestellingen">Bekijk uw bestellingen</a></div>
         <div class="flex-item"><a href="bekijkFotos">Bekijk de foto's</a></div>
+      </div>
     </div>
-</div>
 
-<a class="btn" href="logOut">Log out</a>
-<a class="btn" href="/">Home</a>
+    <a id="btnLogout" class="btn" href="#">Log out</a>
+    <a class="btn" href="/">Home</a>
 
+    <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBG-ahO2gR1OBlCCuErWMoQKsgBIr692qk",
+        authDomain: "casamentos-16f05.firebaseapp.com",
+        databaseURL: "https://casamentos-16f05.firebaseio.com",
+        projectId: "casamentos-16f05",
+        storageBucket: "casamentos-16f05.appspot.com",
+        messagingSenderId: "658920686702"
+      };
+      firebase.initializeApp(config);
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js"
-        integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
-        crossorigin="anonymous"></script>
-</body>
-</html>
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+        } else {
+          // No user is signed in.
+          fetch("http://localhost:5000/logOut", {
+            method: 'GET',
+          }).then((res) => {
+            location.href = 'http://localhost:5000/'
+          });
+        }
+      });
+
+      let btnLogout = document.getElementById('btnLogout');
+      btnLogout.addEventListener('click', (e) => {
+        e.preventDefault();
+        const auth = firebase.auth();
+        firebase.auth().signOut().then(function() {
+          // Sign-out successful.
+        }).catch(function(error) {
+          // An error happened.
+        });
+      });
+    </script>
+    <%- include parts/footer.ejs %>

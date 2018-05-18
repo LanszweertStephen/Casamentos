@@ -2,34 +2,99 @@ const express = require('express');
 const router = express.Router();
 const functions = require('firebase-functions');
 const bodyParser = require("body-parser");
-const admin = require('firebase-admin');
+var admin = require('firebase-admin');
 
-var session = require('express-session');
-
-router.use(session({
-    secret: 'my secret',
-    resave: false,
-    saveUninitialized: false
-}));
-
-router.use(function (req, res, next) {
-    res.locals.user = req.session.user;
-    next();
+admin.initializeApp({
+  databaseURL: 'https://casamentos-16f05.firebaseio.com/'
 });
 
-router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({ extended: false }));
 
-admin.initializeApp(functions.config().firebase);
 let db = admin.firestore();
 
-
 let formulesRef = db.collection('Formules');
+let usersRef = db.collection('Users');
 
-router.get('/', function (req, res, next) {
-    res.render('index.ejs');
+router.use(function(req, res, next) {
+  if (res.locals.user == null) {
+    res.locals.user = null;
+  }
+  next();
+});
+
+let loggedInUser = null;
+
+router.get('/', function(req, res, next) {
+  res.render('index',{user:loggedInUser});
+});
+
+router.get('/formules', function(req, res, next) {
+  let formules = [];
+  formulesRef.get()
+    .then(snapshot => {
+      snapshot.forEach(doc => {
+        formules.push(doc.data());
+      });
+      res.render('formules', {
+        formules: formules,user:loggedInUser
+      });
+    })
+    .catch(err => {
+      console.log('Error getting documents', err);
+    });
+});
+
+router.get('/bestelFormule', function(req, res, next) {
+  var formuleId = req.query.formuleId;
+  res.render('bestelFormulier',{user:loggedInUser});
+});
+
+router.post('/setUser', (req, res, next) => {
+  loggedInUser = req.body[0];
+  res.send("test");
+});
+
+router.post('/login', function(req, res, next) {
+  res.render('loggedIn',{user:loggedInUser});
 });
 
 
+router.get('/logIn', function(req, res, next) {
+  res.render('login',{user:loggedInUser});
+});
+
+router.get('/register', function(req, res, next) {
+  res.render('register',{user:loggedInUser});
+});
+
+
+router.post('/register', function(req, res, next) {
+  let newUser = {
+    name: req.body.name,
+    email: req.body.email,
+    username: req.body.username,
+    password: req.body.password
+  };
+  res.send(newUser);
+});
+
+router.get('/contact', function(req, res, next) {
+  res.render('contact');
+});
+
+
+router.get('/fotogalerij', function(req, res, next) {
+  res.render('fotogalerij');
+});
+
+router.get('/logOut', function(req, res, next) {
+  loggedInUser = null;
+  res.send('jaja');
+});
+
+router.get('/goToAccount', function(req, res, next) {
+  res.render('loggedIn', {
+    user: loggedInUser
+  });
+});
 
 module.exports = router;
