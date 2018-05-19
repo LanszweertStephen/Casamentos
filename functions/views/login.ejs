@@ -62,42 +62,5 @@
   <a class="link text-center" href="passwordForgotten">I forgot my password :o</a>
   <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-auth.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyBG-ahO2gR1OBlCCuErWMoQKsgBIr692qk",
-      authDomain: "casamentos-16f05.firebaseapp.com",
-      databaseURL: "https://casamentos-16f05.firebaseio.com",
-      projectId: "casamentos-16f05",
-    };
-    firebase.initializeApp(config);
-
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        // User is signed in.
-        console.log(user.providerData);
-        fetch("http://localhost:5000/setUser", {
-          method: 'POST',
-          body: JSON.stringify(user.providerData),
-          headers: new Headers({
-            'Content-Type': 'application/json'
-          })
-        }).then((res) => {
-          document.getElementById('signIn').submit();
-        });
-      } else {
-        // No user is signed in.
-      }
-    });
-
-    let btnSignIn = document.getElementById('signInBtn');
-    btnSignIn.addEventListener('click', (e) => {
-      e.preventDefault();
-      let passedInEmail = document.getElementById('email');
-      let passedInPassword = document.getElementById('password');
-      const auth = firebase.auth();
-      const promise = auth.signInWithEmailAndPassword(passedInEmail.value, passedInPassword.value);
-      promise.catch(e => console.log(e.message));
-    });
-  </script>
+  <script src="javascripts/authScript.js"></script>
   <%- include parts/footer.ejs %>

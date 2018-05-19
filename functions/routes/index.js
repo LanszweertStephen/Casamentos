@@ -24,7 +24,9 @@ router.use(function(req, res, next) {
 let loggedInUser = null;
 
 router.get('/', function(req, res, next) {
-  res.render('index',{user:loggedInUser});
+  res.render('index', {
+    user: loggedInUser
+  });
 });
 
 router.get('/formules', function(req, res, next) {
@@ -35,7 +37,8 @@ router.get('/formules', function(req, res, next) {
         formules.push(doc.data());
       });
       res.render('formules', {
-        formules: formules,user:loggedInUser
+        formules: formules,
+        user: loggedInUser
       });
     })
     .catch(err => {
@@ -45,50 +48,46 @@ router.get('/formules', function(req, res, next) {
 
 router.get('/bestelFormule', function(req, res, next) {
   var formuleId = req.query.formuleId;
-  res.render('bestelFormulier',{user:loggedInUser});
+  res.render('bestelFormulier', {
+    user: loggedInUser
+  });
 });
 
 router.post('/setUser', (req, res, next) => {
   loggedInUser = req.body[0];
-  res.send("test");
+  res.send("user set to values");
 });
 
 router.post('/login', function(req, res, next) {
-  res.render('loggedIn',{user:loggedInUser});
+  res.render('loggedIn', {
+    user: loggedInUser
+  });
 });
 
 
 router.get('/logIn', function(req, res, next) {
-  res.render('login',{user:loggedInUser});
+  res.render('login', {
+    user: loggedInUser
+  });
 });
 
 router.get('/register', function(req, res, next) {
-  res.render('register',{user:loggedInUser});
-});
-
-
-router.post('/register', function(req, res, next) {
-  let newUser = {
-    name: req.body.name,
-    email: req.body.email,
-    username: req.body.username,
-    password: req.body.password
-  };
-  res.send(newUser);
+  res.render('register', {
+    user: loggedInUser
+  });
 });
 
 router.get('/contact', function(req, res, next) {
-  res.render('contact');
+  res.render('contact',{user:loggedInUser});
 });
 
-
 router.get('/fotogalerij', function(req, res, next) {
-  res.render('fotogalerij');
+  res.render('fotogalerij',{user:loggedInUser});
 });
 
 router.get('/logOut', function(req, res, next) {
   loggedInUser = null;
-  res.send('jaja');
+  res.send('user set to null');
 });
 
 router.get('/goToAccount', function(req, res, next) {
