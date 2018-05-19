@@ -49,7 +49,9 @@
 </style>
 
 <h1 class="h1 text-center">Register here</h1>
+<p id="error" class="bg-danger">
 
+</p>
 
 <form id="signIn" action="login" method="post">
     <div class="form-group">
@@ -59,6 +61,10 @@
     <div class="form-group">
         <label for="password"><i class="fas fa-lock"></i></label>
         <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+    </div>
+    <div class="form-group">
+        <label for="retypPassword"><i class="fas fa-lock"></i></label>
+        <input type="password" class="form-control" name="retypPassword" id="retypPassword" placeholder="Password again">
     </div>
     <div class="form-group">
         <input id="btnRegister" type="submit" class="btn" value="Register">

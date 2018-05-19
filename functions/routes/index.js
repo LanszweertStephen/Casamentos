@@ -47,10 +47,15 @@ router.get('/formules', function(req, res, next) {
 });
 
 router.get('/bestelFormule', function(req, res, next) {
-  var formuleId = req.query.formuleId;
-  res.render('bestelFormulier', {
-    user: loggedInUser
-  });
+  if (loggedInUser == null) {
+    // FIXME: fix the login after clicked on a formule
+    res.render("login",{user:loggedInUser});
+  } else {
+    var formuleId = req.query.formuleId;
+    res.render('bestelFormulier', {
+      user: loggedInUser
+    });
+  }
 });
 
 router.post('/setUser', (req, res, next) => {
@@ -78,11 +83,15 @@ router.get('/register', function(req, res, next) {
 });
 
 router.get('/contact', function(req, res, next) {
-  res.render('contact',{user:loggedInUser});
+  res.render('contact', {
+    user: loggedInUser
+  });
 });
 
 router.get('/fotogalerij', function(req, res, next) {
-  res.render('fotogalerij',{user:loggedInUser});
+  res.render('fotogalerij', {
+    user: loggedInUser
+  });
 });
 
 router.get('/logOut', function(req, res, next) {
