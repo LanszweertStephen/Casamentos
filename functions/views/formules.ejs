@@ -1,39 +1,5 @@
 <%- include parts/header.ejs %>
 
-<style>
-    .formule{
-        background-color: rgba(196, 142, 42, 0.93);
-        padding: 5%;
-    }
-
-    .left-arrow, .right-arrow{
-        font-size: 35px;
-        padding: 2%;
-        position: relative;
-    }
-
-    .right-arrow{
-        float: right;
-    }
-    .left-arrow{
-        float: left;
-    }
-
-    .button{
-        background-color: black;
-    }
-    a{
-        text-decoration: none;
-        color: rgba(196, 142, 42, 0.93);
-    }
-
-    h3{
-        font-style: italic;
-        font-weight: bold;
-        font-size: 35px;
-    }
-</style>
-
 <div class="container body-content">
     <h2>Kies de formule die het beste bij u past</h2>
     <div id="leftArrow" class="left-arrow">
@@ -66,7 +32,7 @@
                         </div>
                         <div><p class="text-center">${formule.Description}</p></div>
                         <div class="button panel-footer">
-                        <a class="btn btn-lg btn-block" href="bestelFormule">BESTEL</a>
+                        <a class="alink btn btn-lg btn-block" href="bestelFormule">BESTEL</a>
                         </div>
                     </div>`;
         chosenFormule.innerHTML = toShow;

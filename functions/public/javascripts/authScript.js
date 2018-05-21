@@ -1,11 +1,12 @@
 // TODO: change url's
 // TODO: maybe send the verification email first
 // TODO: fix error handling
-const loginUrl = "http://localhost:5000/logIn";
-const loggedInUrl = "http://localhost:5000/login";
-const registerUrl = "http://localhost:5000/register";
-const accountUrl = "http://localhost:5000/goToAccount";
-const formuleUrl = "http://localhost:5000/bestelFormule";
+const loginUrl = "https://casamentos-16f05.firebaseapp.com/logIn";
+const loggedInUrl = "https://casamentos-16f05.firebaseapp.com/login";
+const registerUrl = "https://casamentos-16f05.firebaseapp.com/register";
+const accountUrl = "https://casamentos-16f05.firebaseapp.com/goToAccount";
+const formuleUrl = "https://casamentos-16f05.firebaseapp.com/bestelFormule";
+
 var config = {
   apiKey: "AIzaSyBG-ahO2gR1OBlCCuErWMoQKsgBIr692qk",
   authDomain: "casamentos-16f05.firebaseapp.com",
@@ -37,7 +38,7 @@ if (document.URL == loggedInUrl || document.URL == accountUrl) {
 }
 
 function setUser(user) {
-  fetch("http://localhost:5000/setUser", {
+  fetch("https://casamentos-16f05.firebaseapp.com/setUser", {
     method: 'POST',
     body: JSON.stringify(user.providerData),
     headers: new Headers({
@@ -49,10 +50,10 @@ function setUser(user) {
 }
 
 function sendLogout() {
-  fetch("http://localhost:5000/logOut", {
+  fetch("https://casamentos-16f05.firebaseapp.com/logOut", {
     method: 'GET',
   }).then((res) => {
-    location.href = 'http://localhost:5000/'
+    location.href = 'https://casamentos-16f05.firebaseapp.com/'
   });
 }
 

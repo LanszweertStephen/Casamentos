@@ -10,10 +10,6 @@ admin.initializeApp({
 
 
 let db = admin.firestore();
-
-let formulesRef = db.collection('Formules');
-let usersRef = db.collection('Users');
-
 router.use(function(req, res, next) {
   if (res.locals.user == null) {
     res.locals.user = null;
@@ -23,6 +19,53 @@ router.use(function(req, res, next) {
 
 let loggedInUser = null;
 
+
+function getFormules(cb) {
+  let formulesRef = db.collection('Formules');
+  let formules = [];
+  formulesRef.get()
+    .then(snapshot => {
+      snapshot.forEach(doc => {
+        formules.push(doc.data());
+      });
+      cb(formules);
+    })
+    .catch(err => {
+      console.log('Error getting documents', err);
+    });
+}
+
+function addBestelling(req, cb) {
+  let bestellingenRef = db.collection('Bestellingen');
+  bestellingenRef.add({
+      user: loggedInUser.email,
+      type: req.body.type,
+      locatie: req.body.locatie,
+      dag: req.body.dag,
+      opmerkingen: req.body.opmerkingen
+    }).then(function(docRef) {
+      cb();
+    })
+    .catch(function(error) {
+      console.error("Error writing document: ", error);
+    });
+}
+
+function getBestellingen(cb) {
+  let bestellingenRef = db.collection('Bestellingen');
+  let bestellingen = [];
+  bestellingenRef.where("user", "==", loggedInUser.email).get()
+    .then(snapshot => {
+      snapshot.forEach(doc => {
+        bestellingen.push(doc.data());
+      });
+      cb(bestellingen);
+    })
+    .catch(err => {
+      console.log('Error getting documents', err);
+    });
+}
+
 router.get('/', function(req, res, next) {
   res.render('index', {
     user: loggedInUser
@@ -30,30 +73,46 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/formules', function(req, res, next) {
-  let formules = [];
-  formulesRef.get()
-    .then(snapshot => {
-      snapshot.forEach(doc => {
-        formules.push(doc.data());
-      });
-      res.render('formules', {
-        formules: formules,
-        user: loggedInUser
-      });
+  getFormules((formules) => {
+    res.render('formules', {
+      user: loggedInUser,
+      formules: formules
     })
-    .catch(err => {
-      console.log('Error getting documents', err);
-    });
+  });
+});
+
+router.get('/lookOrders',function(req,res,next){
+    getBestellingen((bestellingen)=>{
+      res.render('bestellingen',{
+        user:loggedInUser,
+        bestellingen:bestellingen
+      })
+    })
+});
+
+router.post('/bestel', function(req, res, next) {
+  addBestelling(req, () => {
+    getBestellingen((bestellingen) => {
+      res.render('bestellingen', {
+        user: loggedInUser,
+        bestellingen: bestellingen
+      })
+    })
+  })
 });
 
 router.get('/bestelFormule', function(req, res, next) {
   if (loggedInUser == null) {
     // FIXME: fix the login after clicked on a formule
-    res.render("login",{user:loggedInUser});
-  } else {
-    var formuleId = req.query.formuleId;
-    res.render('bestelFormulier', {
+    res.render("login", {
       user: loggedInUser
+    });
+  } else {
+    getFormules((formules) => {
+      res.render('bestelFormulier', {
+        user: loggedInUser,
+        formules: formules
+      })
     });
   }
 });
@@ -104,5 +163,13 @@ router.get('/goToAccount', function(req, res, next) {
     user: loggedInUser
   });
 });
+
+
+router.get('/changeProfile', function(req, res, next) {
+  res.render('changeProfile', {
+    user: loggedInUser
+  });
+})
+
 
 module.exports = router;

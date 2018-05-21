@@ -1,47 +1,6 @@
 <%- include parts/header.ejs %>
   <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
-  <style>
-    h1 {
-      margin-top: 10%;
-    }
-
-    form {
-      padding-top: 10%;
-    }
-
-    .form-group {
-      border-top: solid 1px black;
-      margin-top: 5%;
-      padding: 5%;
-      width: 60%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .form-control {
-      width: 80%;
-    }
-
-    .btn {
-      background-color: rgba(196, 142, 42, 0.93);
-      color: white;
-      width: 100%;
-      padding: 10%;
-      font-size: 25px;
-    }
-
-    label {
-      font-size: 30px;
-      float: left;
-      margin-right: 3%;
-    }
-
-    .link {
-      text-decoration: underline;
-      color: rgba(196, 142, 42, 0.93);
-    }
-  </style>
 
   <h1 class="h1 text-center">Log in</h1>
 <p id="error" class="bg-danger">
@@ -49,16 +8,16 @@
 </p>
   <form id="signIn" action="login" method="post">
 
-    <div class="form-group">
-      <label for="email"><i class="fas fa-user"></i></label>
-      <input type="text" class="form-control" name="email" id="email" placeholder="Email">
+    <div class="form-groupUser">
+      <label class="labelUser" for="email"><i class="fas fa-user"></i></label>
+      <input type="text" class="form-controlUser" name="email" id="email" placeholder="Email">
     </div>
-    <div class="form-group">
-      <label for="password"><i class="fas fa-lock"></i></label>
-      <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+    <div class="form-groupUser">
+      <label class="labelUser" for="password"><i class="fas fa-lock"></i></label>
+      <input type="password" class="form-controlUser" name="password" id="password" placeholder="Password">
     </div>
-    <div class="form-group">
-      <input type="submit" id="signInBtn" value="Log in" class="btn">
+    <div class="form-groupUser">
+      <input type="submit" id="signInBtn" value="Log in" class="btnUser">
     </div>
   </form>
   <a class="link text-center" href="passwordForgotten">I forgot my password :o</a>

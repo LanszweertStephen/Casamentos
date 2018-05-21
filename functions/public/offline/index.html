@@ -12,13 +12,12 @@
   <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
   <meta name="msapplication-TileColor" content="#2b5797">
   <meta name="theme-color" content="#ffffff">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="stylesheets/style.css" />
+  <link rel="stylesheet" href="/stylesheets/bootstrap.css">
 </head>
 
 <body>
 
-  <nav class="navbar navbar-expand-md">
+  <nav class="navbar">
     <a class="navbar-brand" href="#">Casamentos</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <i style="color: white;" class="fas fa-align-justify"></i>
@@ -38,18 +37,14 @@
         <li class="nav-item">
           <a class="nav-link" href="fotogalerij">Fotogalerij</a>
         </li>
-        <% if(user == null){ %>
-          <li class="nav-item">
-            <a class="nav-link" href="logIn">Log In</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="register">Register</a>
-          </li>
-          <% } else{ %>
-            <li class="nav-item">
-              <a class="nav-link" href="goToAccount">Account</a>
-            </li>
-            <% } %>
       </ul>
     </div>
   </nav>
+
+  <h1>Geen netwerkverbinding beschikbaar :()</h1>
+  <h2>Om te volle van deze website te kunnen genieten zorg alstublieft voor een goede netwerkvebinding</h2>
+  <script src="javascripts/jquery-3.2.1.js"></script>
+  <script src="javascripts/bootstrap.js"></script>
+</body>
+
+</html>
