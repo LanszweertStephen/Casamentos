@@ -1,5 +1,0 @@
-- change url's __TODO__ [functions\public\javascripts\authScript.js](functions\public\javascripts\authScript.js)
-- fix error handling __TODO__ [functions\public\javascripts\authScript.js](functions\public\javascripts\authScript.js)
-- fix the login after clicked on a formule __FIXME__ [functions\routes\index.js](functions\routes\index.js)
-- maybe send the verification email first __TODO__ [functions\public\javascripts\authScript.js](functions\public\javascripts\authScript.js)
-- populate this file with the css of all the ejs views __TODO__ [functions\public\stylesheets\style.css](functions\public\stylesheets\style.css)
