@@ -1,6 +1,3 @@
-// TODO: change url's
-// TODO: maybe send the verification email first
-// TODO: fix error handling
 const loginUrl = "https://casamentos-16f05.firebaseapp.com/logIn";
 const loggedInUrl = "https://casamentos-16f05.firebaseapp.com/login";
 const registerUrl = "https://casamentos-16f05.firebaseapp.com/register";

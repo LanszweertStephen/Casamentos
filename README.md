@@ -45,4 +45,4 @@ The public folder has almost no use and is just so that Firebase can succesfully
 As I said earlier I used Google Firebase to host my app.
 So by just surfing to [this](https://casamentos-16f05.firebaseapp.com/) you should be able to get to this PWA. 
 
-You can also access the github repository by clicking on [this] link.
+You can also access the github repository by clicking on [this](https://github.com/LanszweertStephen/Casamentos) link.

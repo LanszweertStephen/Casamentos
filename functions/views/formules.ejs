@@ -15,54 +15,56 @@
 </div>
 
 <script>
-    var leftArrow = document.getElementById('leftArrow');
-    var rightArrow = document.getElementById('rightArrow');
-    var formules = '<%- JSON.stringify(formules); %>';
+var leftArrow = document.getElementById('leftArrow');
+var rightArrow = document.getElementById('rightArrow');
+var formules = '<%- JSON.stringify(formules); %>';
 
 
-    function showCard(formule) {
-        var chosenFormule = document.getElementById('chosenFormule');
-        var toShow = `<div class="text-center formule panel price">
-                        <div class="panel-heading">
-                            <h3>${formule.Name}</h3>
-                        </div>
-                        <div class="panel-body">
-                            <p class="lead" style="margin-left:auto;margin-right:auto;font-size:40px"><strong>${formule.Prijs}</strong>
-                            </p>
-                        </div>
-                        <div><p class="text-center">${formule.Description}</p></div>
-                        <div class="button panel-footer">
-                        <a class="alink btn-lg btn-block" href="bestelFormule">BESTEL</a>
-                        </div>
-                    </div>`;
-        chosenFormule.innerHTML = toShow;
-    }
+function showCard(formule) {
+    var chosenFormule = document.getElementById('chosenFormule');
+    var toShow = `<div class="text-center formule panel price">
+                    <div class="panel-heading">
+                        <h3>${formule.Name}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p class="lead" style="margin-left:auto;margin-right:auto;font-size:40px"><strong>${formule.Prijs}</strong>
+                        </p>
+                    </div>
+                    <div><p class="text-center">${formule.Description}</p></div>
+                    <div class="button panel-footer">
+                    <a class="alink btn-lg btn-block" href="bestelFormule">BESTEL</a>
+                    </div>
+                </div>`;
+    chosenFormule.innerHTML = toShow;
+}
 
-    function init() {
-        formules = JSON.parse(formules);
-        var counter = 0;
-        console.log(formules);
+function init() {
+    formules = JSON.parse(formules);
+    var counter = 0;
+    console.log(formules);
+    showCard(formules[counter]);
+    leftArrow.addEventListener('click',function () {
+        counter--;
+        if(counter == -1){
+            counter = formules.length - 1;
+        }
         showCard(formules[counter]);
-        leftArrow.addEventListener('click',function () {
-            counter--;
-            if(counter == -1){
-                counter = formules.length - 1;
-            }
-            showCard(formules[counter]);
-        });
-        rightArrow.addEventListener('click',function () {
-            if(counter >= formules.length -1){
-                counter = 0;
-            } else {
-                counter++;
-            }
-            showCard(formules[counter]);
+    });
+    rightArrow.addEventListener('click',function () {
+        if(counter >= formules.length -1){
+            counter = 0;
+        } else {
+            counter++;
+        }
+        showCard(formules[counter]);
 
-        });
-    }
+    });
+}
 
-    init();
-
+init();
 
 </script>
+
+
+
 <%- include parts/footer.ejs %>
