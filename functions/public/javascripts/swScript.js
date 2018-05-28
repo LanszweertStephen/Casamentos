@@ -1,5 +1,8 @@
-if('serviceWorker' in navigator){
+if (navigator.serviceWorker.controller) {
+  console.log('[serviceWorker] active service worker found, no need to register')
+} else {
   navigator.serviceWorker.register('./sw.js')
-  .then(console.log)
-  .catch(console.error);
+    .then(function(reg) {
+      console.log('Service worker has been registered for scope:' + reg.scope);
+    });
 }

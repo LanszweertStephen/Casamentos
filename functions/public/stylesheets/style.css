@@ -1,9 +1,4 @@
 /* Algemene css */
-@font-face {
-  font-family: myFirstFont;
-  src: url('fonts/Ubuntu-Regular.ttf');
-}
-
 body {
   font-family: myFirstFont, sans-serif;
   text-align: center;

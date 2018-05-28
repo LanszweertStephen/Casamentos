@@ -8,16 +8,14 @@ admin.initializeApp({
   databaseURL: 'https://casamentos-16f05.firebaseio.com/'
 });
 
+let loggedInUser = null;
+
 
 let db = admin.firestore();
 router.use(function(req, res, next) {
-  if (res.locals.user == null) {
-    res.locals.user = null;
-  }
+  res.locals.user = loggedInUser;
   next();
 });
-
-let loggedInUser = null;
 
 
 function getFormules(cb) {

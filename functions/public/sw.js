@@ -3,8 +3,8 @@ const version = 'v1';
 self.addEventListener('install', function(event) {
   console.log('[serviceWorker] v1 installed');
   event.waitUntil(
-    caches.open(version).then(function(cache){
-      return cache.addAll(['/offline/index.html','/offline/style.css','/stylesheets/bootstrap.css','/javascripts/bootstrap.js','/javascripts/jquery-3.2.1.js']);
+    caches.open(version).then(function(cache) {
+      return cache.addAll(['/offline/index.html', '/offline/style.css']);
     }));
 })
 
@@ -13,10 +13,12 @@ self.addEventListener('activate', function(event) {
 })
 
 self.addEventListener('fetch', function(event) {
-  if (!navigator.onLine) {
-    event.respondWith(caches.match(new Request('/offline/index.html')));
-  } else {
-    console.log('[serviceWorker] fetching', event.request.url);
-    event.respondWith(fetch(event.request));
-  }
+  event.respondWith(
+    caches.match(event.request)
+    .then(function(res){
+      if(res) return res;
+      if(!navigator.onLine) return caches.match(new Request('/offline/index.html'));
+      return fetch(event.request);
+    })
+  )
 })
