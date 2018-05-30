@@ -1,0 +1,72 @@
+<%- include parts/header.ejs %>
+
+<p class="text-info">Om een beter beeld te hebben op de galerij draait u het beste uw mobiel</p>
+
+<div class="slidercontainer">
+    <div class="showSlide fade">
+        <img src="images/fotogalerij/0.jpg"/>
+        <div class="contentImg">Slide1 heading</div>
+    </div>
+    <div class="showSlide fade">
+        <img src="images/fotogalerij/1.jpg"/>
+        <div class="contentImg">Slide2 heading</div>
+    </div>
+
+    <div class="showSlide fade">
+        <img src="images/fotogalerij/2.jpg"/>
+        <div class="contentImg">Slide3 heading</div>
+    </div>
+    <div class="showSlide fade">
+        <img src="images/fotogalerij/3.jpg"/>
+        <div class="contentImg">Slide4 heading</div>
+    </div>
+    <!-- Navigation arrows -->
+    <a class="left" onclick="nextSlide(-1)"><i class="fas fa-arrow-left"></i></a>
+    <a class="right" onclick="nextSlide(1)"><i class="fas fa-arrow-right"></i></a>
+</div>
+
+
+<script>
+
+    var slide_index = 1;
+    var slides = document.getElementsByClassName("showSlide");
+
+    displaySlides(slide_index);
+
+    function nextSlide(n) {
+        displaySlides(slide_index += n);
+    }
+
+    function currentSlide(n) {
+        displaySlides(slide_index = n);
+    }
+
+    setInterval(function () {
+        slide_index++;
+        if (slide_index > slides.length) {
+            slide_index = 1
+        }
+        if (slide_index < 1) {
+            slide_index = slides.length
+        }
+        displaySlides(slide_index);
+    },3000);
+
+    function displaySlides(n) {
+        var i;
+        if (n > slides.length) {
+            slide_index = 1
+        }
+        if (n < 1) {
+            slide_index = slides.length
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slide_index - 1].style.display = "block";
+    }
+
+
+</script>
+
+<%- include parts/footer.ejs %>

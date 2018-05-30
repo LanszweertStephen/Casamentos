@@ -1,0 +1,27 @@
+<%- include parts/header.ejs %>
+  <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
+
+  <h1 class="h1 text-center">Log in</h1>
+<p id="error" class="bg-danger">
+
+</p>
+  <form id="signIn" action="login" method="post">
+
+    <div class="form-groupUser">
+      <label class="labelUser" for="email"><i class="fas fa-user"></i></label>
+      <input type="text" class="form-controlUser" name="email" id="email" placeholder="Email">
+    </div>
+    <div class="form-groupUser">
+      <label class="labelUser" for="password"><i class="fas fa-lock"></i></label>
+      <input type="password" class="form-controlUser" name="password" id="password" placeholder="Password">
+    </div>
+    <div class="form-groupUser">
+      <input type="submit" id="signInBtn" value="Log in" class="btnUser">
+    </div>
+  </form>
+  <a class="link text-center" href="passwordForgotten">I forgot my password :o</a>
+  <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-auth.js"></script>
+  <script src="javascripts/authScript.js"></script>
+  <%- include parts/footer.ejs %>
